@@ -1,0 +1,125 @@
+swagger: "2.0"
+info:
+  description: "This is a multiplayer distributed hangman game"
+  version: "1.0.0"
+  title: "Distributed Hangman"
+  contact:
+    email: "amolc24@ygmail.com"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "localhost:9090"
+basePath: "/v1"
+schemes:
+- "http"
+paths:
+  /hangman/guess/{gameId}:
+    post:
+      tags:
+      - "guess"
+      summary: "Guess a character of the magic word"
+      operationId: "guess"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "gameId"
+        in: "path"
+        description: "Id of the on going game"
+        required: true
+        type: "string"
+        format: "UUID"
+      - in: "body"
+        name: "body"
+        description: "Guess object with the character"
+        required: true
+        schema:
+          $ref: "#/definitions/Guess"
+      responses:
+        "200":
+          description: "Returns current state of game"
+          schema:
+            $ref: "#/definitions/GameData"
+        "400":
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/GameData"
+        "500":
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/GameData"
+  /hangman/join/{gameId}:
+    get:
+      tags:
+      - "join"
+      summary: "Join the ongoing game"
+      operationId: "joinById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "gameId"
+        in: "path"
+        description: "Id of the ongoing game to join"
+        required: true
+        type: "string"
+        format: "UUID"
+      responses:
+        "200":
+          description: "Returns current state of game"
+          schema:
+            $ref: "#/definitions/GameData"
+        "400":
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/GameData"
+        "500":
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/GameData"
+  /hangman/newGame:
+    get:
+      tags:
+      - "Game"
+      summary: "Join the ongoing game"
+      operationId: "newGame"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "Returns current state of game"
+          schema:
+            $ref: "#/definitions/GameData"
+        "400":
+          description: "Bad Request"
+          schema:
+            $ref: "#/definitions/GameData"
+        "500":
+          description: "Internal Server Error"
+          schema:
+            $ref: "#/definitions/GameData"
+definitions:
+  Guess:
+    type: "object"
+    properties:
+      letter:
+        type: "string"
+  GameData:
+    type: "object"
+    properties:
+      gameId:
+        type: "string"
+      startTime:
+        type: "string"
+      isComplete:
+        type: "boolean"
+      decodedWord:
+        type: array
+        items:
+          type: "string"
+      incorrectGuess:
+        type: array
+        items:
+          type: "string"
+      errorMessage:
+        type: "string"
