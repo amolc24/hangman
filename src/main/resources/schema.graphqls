@@ -1,0 +1,25 @@
+scalar DateTime
+
+type GameData {
+	gameId: ID!
+	startTime: DateTime
+	isComplete: Boolean
+	
+	decodedWord: [String]
+	incorrectGuess: [String]
+	
+	errorMessage: String
+}
+
+
+input Guess {
+	letter: String
+	clientId: String
+}
+
+
+type Query {
+	newGame: GameData!
+	join(gameId: ID): GameData
+	guess(gameId: ID, guess: Guess): GameData
+}

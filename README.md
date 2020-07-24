@@ -22,7 +22,6 @@ The application will start on port **9090**
 [Swagger API Documentation](docs/swagger.yaml)
 
 
-
 # System Design
 
 ![System Design](docs/system_design.png)
@@ -30,7 +29,6 @@ The application will start on port **9090**
 ![Database Schema Design](docs/cassandra_schema.png)
 
 ![Distributed Cache Design](docs/redis_cache.png)
-
 
 # Notes and Design diagrams raw images
 

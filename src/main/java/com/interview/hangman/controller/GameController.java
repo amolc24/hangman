@@ -20,7 +20,7 @@ import com.interview.hangman.model.Guess;
 import com.interview.hangman.service.GameException;
 import com.interview.hangman.service.GameService;
 
-@RestController()
+//@RestController()
 public class GameController {
 
 	@Autowired
